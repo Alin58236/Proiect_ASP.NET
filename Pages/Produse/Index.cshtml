@@ -1,0 +1,67 @@
+﻿@page "/"
+@model beerT.Pages.Produse.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista Produse</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Produs[0].denumire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produs[0].pret)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produs[0].Distribuitor.DistribuitorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produs[0].ProdusCategories)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ProdusD.Produse) {
+            string selectedRow = "";
+                if(item.ID == Model.ProdusID)
+                {
+                    selectedRow = "table-success";
+                }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.denumire)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.pret)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Distribuitor.DistribuitorName)
+                </td>
+
+                <td>
+                    @{
+                        foreach(var category in item.ProdusCategories)
+                        {
+                            @category.Category.ID @: @category.Category.CategoryName <br/>
+                        }
+                    }
+                </td>
+
+
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>
