@@ -18,5 +18,7 @@ namespace beerT.Models
             }
         }
 
+        public string Email { get; set; }
+
     }
 }
