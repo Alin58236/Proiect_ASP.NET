@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using beerT.Data;
 
@@ -11,9 +12,10 @@ using beerT.Data;
 namespace beerT.Migrations
 {
     [DbContext(typeof(beerTContext))]
-    partial class beerTContextModelSnapshot : ModelSnapshot
+    [Migration("20221229233026_Clienti-Comenzi")]
+    partial class ClientiComenzi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,20 +70,20 @@ namespace beerT.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<string>("Adresa")
+                    b.Property<string>("Adress")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Nume")
+                    b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Prenume")
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Telefon")
+                    b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -102,6 +104,9 @@ namespace beerT.Migrations
 
                     b.Property<DateTime>("DataRezervare")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("MemberID")
+                        .HasColumnType("int");
 
                     b.Property<int?>("ProdusID")
                         .HasColumnType("int");

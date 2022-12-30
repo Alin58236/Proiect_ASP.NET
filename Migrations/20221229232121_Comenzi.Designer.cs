@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using beerT.Data;
 
@@ -11,13 +12,14 @@ using beerT.Data;
 namespace beerT.Migrations
 {
     [DbContext(typeof(beerTContext))]
-    partial class beerTContextModelSnapshot : ModelSnapshot
+    [Migration("20221229232121_Comenzi")]
+    partial class Comenzi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.12")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -58,61 +60,6 @@ namespace beerT.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Category");
-                });
-
-            modelBuilder.Entity("beerT.Models.Client", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<string>("Adresa")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nume")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Prenume")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Telefon")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Client");
-                });
-
-            modelBuilder.Entity("beerT.Models.Comanda", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<int?>("ClientID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DataRezervare")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ProdusID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ClientID");
-
-                    b.HasIndex("ProdusID");
-
-                    b.ToTable("Comanda");
                 });
 
             modelBuilder.Entity("beerT.Models.Distribuitor", b =>
@@ -180,21 +127,6 @@ namespace beerT.Migrations
                     b.ToTable("ProdusCategory");
                 });
 
-            modelBuilder.Entity("beerT.Models.Comanda", b =>
-                {
-                    b.HasOne("beerT.Models.Client", "Client")
-                        .WithMany("Comenzi")
-                        .HasForeignKey("ClientID");
-
-                    b.HasOne("beerT.Models.Produs", "Produs")
-                        .WithMany()
-                        .HasForeignKey("ProdusID");
-
-                    b.Navigation("Client");
-
-                    b.Navigation("Produs");
-                });
-
             modelBuilder.Entity("beerT.Models.Produs", b =>
                 {
                     b.HasOne("beerT.Models.Distribuitor", "Distribuitor")
@@ -226,11 +158,6 @@ namespace beerT.Migrations
             modelBuilder.Entity("beerT.Models.Category", b =>
                 {
                     b.Navigation("ProdusCategories");
-                });
-
-            modelBuilder.Entity("beerT.Models.Client", b =>
-                {
-                    b.Navigation("Comenzi");
                 });
 
             modelBuilder.Entity("beerT.Models.Distribuitor", b =>

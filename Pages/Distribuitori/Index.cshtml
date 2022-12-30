@@ -1,4 +1,5 @@
-﻿@page
+﻿@page "{id:int?}"
+
 @model beerT.Pages.Distribuitori.IndexModel
 
 @{
@@ -20,17 +21,54 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Distribuitor) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DistribuitorName)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
+        @foreach (var item in Model.DistribuitorData.Distribuitori)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.DistribuitorID)
+            {
+                selectedRow = "table-success";
+            }
+     <tr class="@selectedRow">
+     <td>
+                    @Html.DisplayFor(modelItem => item.DistribuitorName)
+     </td>
+
+     <td>
+     <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |
+     <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+     <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+     <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+     </td>
+     </tr>
 }
     </tbody>
 </table>
+@if (Model.DistribuitorData.Produse != null)
+{
+     <h3>Produsele furnizare de catre distribuitorul selectat</h3>
+     <table class="table">
+
+        @foreach (var item in Model.DistribuitorData.Distribuitori)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.DistribuitorID)
+            {
+                selectedRow = "table-success";
+            }
+         <tr class="@selectedRow">
+
+         <td>
+                    @{
+                        foreach (var b in item.Produse)
+                        {
+
+                            @b.denumire @: @b.Distribuitor.DistribuitorName 
+
+                 <br />
+                        }
+                    }
+         </td>
+         </tr>
+        }
+     </table>
+}

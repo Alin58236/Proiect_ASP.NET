@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using beerT.Data;
 
@@ -11,9 +12,10 @@ using beerT.Data;
 namespace beerT.Migrations
 {
     [DbContext(typeof(beerTContext))]
-    partial class beerTContextModelSnapshot : ModelSnapshot
+    [Migration("20221229234111_clientfix")]
+    partial class clientfix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

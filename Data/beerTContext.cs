@@ -21,5 +21,9 @@ namespace beerT.Data
         public DbSet<beerT.Models.Angajat> Angajat { get; set; }
 
         public DbSet<beerT.Models.Category> Category { get; set; }
+
+        public DbSet<beerT.Models.Client> Client { get; set; }
+
+        public DbSet<beerT.Models.Comanda> Comanda { get; set; }
     }
 }

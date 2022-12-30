@@ -20,14 +20,24 @@ namespace beerT.Pages.Produse
             _context = context;
         }
 
-        public IList<Produs> Produs { get;set; }
+        public IList<Produs> Produs { get; set; }
         public ProdusData ProdusD { get; set; }
         public int ProdusID { get; set; }
         public int CategoryID { get; set; }
+        public string TitleSort { get; set; }
+        public string DistribuitorSort { get; set; }
 
-        public async Task OnGetAsync(int? id, int? categoryID)
+        public string CurrentFilter { get; set; }
+        public async Task OnGetAsync(int? id, int? categoryID, string sortOrder, string
+searchString)
         {
             ProdusD = new ProdusData();
+
+            TitleSort = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+
+            DistribuitorSort = String.IsNullOrEmpty(sortOrder) ? "distribuitor_desc" : "";
+
+            CurrentFilter = searchString;
 
             ProdusD.Produse = await _context.Produs
             .Include(b => b.Distribuitor)
@@ -37,14 +47,37 @@ namespace beerT.Pages.Produse
             .OrderBy(b => b.denumire)
             .ToListAsync();
 
-            if (id != null)
+            if (!String.IsNullOrEmpty(searchString))
             {
-                ProdusID = id.Value;
-                Produs produs = ProdusD.Produse
-                .Where(i => i.ID == id.Value).Single();
-                ProdusD.Categories = produs.ProdusCategories.Select(s => s.Category);
-            }
-        }
+                ProdusD.Produse = ProdusD.Produse.Where(s => s.Distribuitor.DistribuitorName.Contains(searchString)
 
+               || s.Distribuitor.DistribuitorName.Contains(searchString)
+               || s.denumire.Contains(searchString));
+                if (id != null)
+                {
+                    ProdusID = id.Value;
+                    Produs produs = ProdusD.Produse
+                    .Where(i => i.ID == id.Value).Single();
+                    ProdusD.Categories = produs.ProdusCategories.Select(s => s.Category);
+                }
+
+
+                switch (sortOrder)
+                {
+                    case "title_desc":
+                        ProdusD.Produse = ProdusD.Produse.OrderByDescending(s =>
+                       s.denumire);
+                        break;
+                    case "distribuitor_desc":
+                        ProdusD.Produse = ProdusD.Produse.OrderByDescending(s =>
+                       s.ProdusCategories);
+                        break;
+
+                }
+
+
+            }
+
+        }
     }
 }
