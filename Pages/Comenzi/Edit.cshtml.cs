@@ -35,8 +35,17 @@ namespace beerT.Pages.Comenzi
             {
                 return NotFound();
             }
-            Comanda = comanda;
-           ViewData["ProdusID"] = new SelectList(_context.Produs, "ID", "ID");
+
+            var produsList = _context.Produs
+                .Select(x => new
+                {
+                    x.ID,
+                    ProdusFullName = x.denumire + " - " + x.pret + " RON "
+                });
+
+           //nu stiu daca trebe comentat sau nu ---> Comanda = comanda;
+            ViewData["ProdusID"] = new SelectList(produsList, "ID", "ProdusFullName");
+            ViewData["ClientID"] = new SelectList(_context.Client, "ID", "NumeComplet");
             return Page();
         }
 

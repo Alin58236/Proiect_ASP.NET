@@ -12,16 +12,22 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Comanda.ClientID)
+            @Html.DisplayNameFor(model => model.Comanda.Client)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Comanda.ClientID)
+            @Html.DisplayFor(model => model.Comanda.Client.NumeComplet)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Comanda.Produs)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Comanda.Produs.ID)
+            @Html.DisplayFor(model => model.Comanda.Produs.denumire)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Comanda.Produs.pret)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Comanda.Produs.pret)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Comanda.DataRezervare)

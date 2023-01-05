@@ -12,9 +12,13 @@ using beerT.Migrations;
 using ProdusCategory = beerT.Models.ProdusCategory;
 using Microsoft.EntityFrameworkCore;
 using beerT.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace beerT.Pages.Produse
 {
+    [Authorize(Roles = "Admin")]
+
     public class CreateModel : ProdusCategoriesPageModel
     {
         private readonly beerT.Data.beerTContext _context;

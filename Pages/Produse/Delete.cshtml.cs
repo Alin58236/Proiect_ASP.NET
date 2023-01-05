@@ -7,9 +7,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using beerT.Data;
 using beerT.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace beerT.Pages.Produse
 {
+    [Authorize(Roles = "Admin")]
+
     public class DeleteModel : PageModel
     {
         private readonly beerT.Data.beerTContext _context;

@@ -104,7 +104,7 @@ namespace beerT.Migrations
                     b.Property<int?>("ClientID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DataRezervare")
+                    b.Property<DateTime?>("DataRezervare")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("ProdusID")

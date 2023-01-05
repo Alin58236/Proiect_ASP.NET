@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using beerT.Data;
 using beerT.Models;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace beerT.Pages.Comenzi
 {
@@ -20,21 +22,21 @@ namespace beerT.Pages.Comenzi
             _context = context;
         }
 
+
+
         public IActionResult OnGet()
         {
-            var produsLista = _context.Produs
-            .Include(b => b.Distribuitor)
+            var produsList = _context.Produs
             .Select(x => new
-             {
-                 x.ID,
-                 ProdusFullName = x.denumire + " - " + x.Distribuitor.DistribuitorName + " - " +
-            x.pret
-             });
+            {
+                x.ID,
+                ProdusFullName = x.denumire + " - " +
+            x.pret + " RON"
+            }) ;
 
-            ViewData["ProdusID"] = new SelectList(produsLista, "ID",
-           "ProdusFullName");
-            ViewData["ClientID"] = new SelectList(_context.Client, "ID",
-           "FullName");
+            ViewData["ClientID"] = new SelectList(_context.Client, "ID", "NumeComplet");
+            ViewData["ProdusID"] = new SelectList(produsList, "ID", "ProdusFullName");
+            
             return Page();
         }
 
@@ -42,7 +44,7 @@ namespace beerT.Pages.Comenzi
         public Comanda Comanda { get; set; }
         
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+
         public async Task<IActionResult> OnPostAsync()
         {
           if (!ModelState.IsValid)

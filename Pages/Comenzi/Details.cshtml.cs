@@ -28,7 +28,11 @@ namespace beerT.Pages.Comenzi
                 return NotFound();
             }
 
-            var comanda = await _context.Comanda.FirstOrDefaultAsync(m => m.ID == id);
+            var comanda = await _context.Comanda
+                .Include(c => c.Client)
+                .Include(c => c.Produs)
+                
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (comanda == null)
             {
                 return NotFound();

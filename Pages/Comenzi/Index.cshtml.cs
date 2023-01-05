@@ -26,8 +26,9 @@ namespace beerT.Pages.Comenzi
             if (_context.Comanda != null)
             {
                 Comanda = await _context.Comanda
-                .Include(c => c.Produs)
-                .ThenInclude(c => c.Distribuitor)
+                .Include(b => b.Produs)
+                .ThenInclude(b=>b.Distribuitor)
+                .Include(b => b.Client)
                 .ToListAsync();
             }
         }

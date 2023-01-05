@@ -4,20 +4,28 @@ using beerT.Data;
 using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy =>
+   policy.RequireRole("Admin"));
+});
 
-builder.Services.AddRazorPages();
+
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/Produse");
+    options.Conventions.AllowAnonymousToPage("/Produse/Index");
+    options.Conventions.AllowAnonymousToPage("/Produse/Details");
+    options.Conventions.AuthorizeFolder("/Members", "AdminPolicy");
+
+});
 builder.Services.AddDbContext<beerTContext>(options =>
 
 options.UseSqlServer(builder.Configuration.GetConnectionString("beerTContext") ?? throw new InvalidOperationException("Connection string 'beerTContext' not found.")));
 
 
-builder.Services.AddDbContext<LibraryIdentityContext>(options =>
-
-options.UseSqlServer(builder.Configuration.GetConnectionString("beerTContext") ?? throw new InvalidOperationException("Connection string 'beerTContext' not found.")));
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
-options.SignIn.RequireConfirmedAccount = true)
- .AddEntityFrameworkStores<LibraryIdentityContext>();
+builder.Services.AddDbContext<LibraryIdentityContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("beerTContext") ?? throw new InvalidOperationException("Connection string 'beerTContext' not found.")));
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>().AddEntityFrameworkStores<LibraryIdentityContext>();
 
 
 var app = builder.Build();

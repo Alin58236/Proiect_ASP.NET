@@ -14,7 +14,7 @@ namespace beerT.Models
         public string denumire { get; set; }
 
 
-        [Column(TypeName = "decimal(6, 2)")]
+        [Column(TypeName = "decimal(6, 2)"), Range(0.01, 500)] //fara Range daca nu merge
         public decimal pret { get; set; }
 
         public int? DistribuitorID { get; set; }

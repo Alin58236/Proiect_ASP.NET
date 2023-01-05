@@ -8,9 +8,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using beerT.Data;
 using beerT.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace beerT.Pages.Produse
 {
+    [Authorize(Roles = "Admin")]
+
     public class EditModel : ProdusCategoriesPageModel
     {
         private readonly beerT.Data.beerTContext _context;
@@ -41,8 +45,7 @@ namespace beerT.Pages.Produse
             PopulateAssignedCategoryData(_context, Produs);
             
             
-            ViewData["PublisherID"] = new SelectList(_context.Distribuitor, "ID",
-           "DistribuitorName");
+            ViewData["DistribuitorID"] = new SelectList(_context.Distribuitor, "ID","DistribuitorName");
             return Page();
         }
 

@@ -14,15 +14,12 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Comanda[0].ClientID)
+                @Html.DisplayNameFor(model => model.Comanda[0].Client)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Comanda[0].Produs)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => 
-model.Comanda[0].Produs.Distribuitor)
- </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.Comanda[0].DataRezervare)
             </th>
@@ -38,6 +35,7 @@ model.Comanda[0].Produs.Distribuitor)
             <td>
                 @Html.DisplayFor(modelItem => item.Produs.denumire)
             </td>
+                
             <td>
                 @Html.DisplayFor(modelItem => item.DataRezervare)
             </td>

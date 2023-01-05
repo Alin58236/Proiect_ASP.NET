@@ -11,7 +11,7 @@ namespace beerT.Models
         public int? ProdusID { get; set; }
         public Produs? Produs { get; set; }
         [DataType(DataType.Date)]
-        public DateTime DataRezervare { get; set; }
+        public DateTime? DataRezervare { get; set; }
 
     }
 }
