@@ -16,7 +16,13 @@ builder.Services.AddRazorPages(options =>
     options.Conventions.AuthorizeFolder("/Produse");
     options.Conventions.AllowAnonymousToPage("/Produse/Index");
     options.Conventions.AllowAnonymousToPage("/Produse/Details");
-    options.Conventions.AuthorizeFolder("/Members", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/Clienti", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/Categories", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/Distribuitori", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/Comenzi", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/Angajati", "AdminPolicy");
+
+
 
 });
 builder.Services.AddDbContext<beerTContext>(options =>
